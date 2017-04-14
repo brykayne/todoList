@@ -1,15 +1,6 @@
 // curious what this is doing? https://learn.jquery.com/using-jquery-core/document-ready/
 $(document).ready(function() {
     //1. if there are no todos, hide #main and #footer
-    // var ulLength = $('ul.todo-list').children().length;
-    // console.log(ulLength);
-    // if (ulLength < 1) {
-    //   $('.main').hide();
-    //   $('.footer').hide();
-    // } else {
-    //   $('.main').show();
-    //   $('.footer').show();
-    // };
 
     $('.main').hide();
     $('.footer').hide();
@@ -35,20 +26,12 @@ $(document).ready(function() {
 
           todoCollection.push(todoObj);
           //3. create list item containing text
-          // <li>
-					// 	<div class="view">
-					// 		<input class="toggle" type="checkbox">
-					// 		<label>Buy a unicorn</label>
-					// 		<button class="destroy"></button>
-					// 	</div>
-					// 	<input class="edit" value="Rule the web">
-					// </li>
 
           var listItem =
-          "<li> \
+          "<li data-id=" + todoId + "> \
             <div class = \"view\"> \
               <input class=\"toggle\" type=\"checkbox\"> \
-              <label data-id=" + todoId + ">" + todoContent + "</label> \
+              <label>" + todoContent + "</label> \
               <button class=\"destroy\"></button> \
             </div> \
             <input class=\"edit\" value=" + todoContent + "> \
@@ -56,8 +39,15 @@ $(document).ready(function() {
 
           //4. Populate unordered list
           $(".todo-list").append(listItem);
-
           };
+    });
+
+    $('.toggle-all').click(function() {
+      //console.log("toggle-all checked");
+      //mark collection of todo objects as completed
+      //Reference for line 50: http://stackoverflow.com/questions/22301116/jquery-dynamically-mark-all-checkboxes-checked
+      $('input:checkbox').not(this).prop('checked', this.checked);
+
     });
 
 
