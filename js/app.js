@@ -41,7 +41,7 @@ $(document).ready(function() {
 
           //Set back to nothing in input box
           $(".new-todo").val('');
-          };
+          }
     });
 
     $('.toggle-all').click(function() {
@@ -50,18 +50,22 @@ $(document).ready(function() {
       //Reference for line 50: http://stackoverflow.com/questions/22301116/jquery-dynamically-mark-all-checkboxes-checked
       $('input:checkbox').not(this).prop('checked', this.checked);
 
+      todoCollection.forEach(function(todoObj) {
+        todoObj.completed = true;
+      });
+      debugger;
+
       console.log(todoCollection);
+
     });
 
     $('.todo-list').on('dblclick', 'li', function() {
-      console.log(this);
       //create a new, editable li with edit style
       $(this).addClass("editing");
     });
 
     $('.todo-list').keypress(function(e) {
         if(e.which == 13) {
-          console.log('you pressed enter');
           //taking DOM element and making it a JQuery element
           var input = $(e.target);
           //get content of edited field (using JQuery)
@@ -76,9 +80,6 @@ $(document).ready(function() {
           li.removeClass("editing");
           //Update value of key content of corresponding object
           todoCollection[li.attr('data-id')-1].content = todoContent;
-
-        };
+        }
     });
-
-
 });
